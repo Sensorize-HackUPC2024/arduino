@@ -9,4 +9,4 @@
     - LEED RED: PIN: 25
     - PIR: PIN: 12 5V
 
-## Arduino 2 ()
+## Arduino 2 (LEDS, )
