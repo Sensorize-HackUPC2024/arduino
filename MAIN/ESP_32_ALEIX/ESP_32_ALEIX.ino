@@ -86,6 +86,21 @@ Serial.print("Message received on topic: ");
     }
   }
 
+
+  String messageTemp;
+  for (int i = 0; i < length; i++){
+    messageTemp += (char)payload[i];
+  }
+  Serial.print(messageTemp);
+  if (strcmp(topic,"actuators/door_unlock/1") == 0){
+    if (messageTemp == "1") {
+        guaranteedAccess();
+    }
+    else{
+      deniedAccess();
+    }
+  }
+
   Serial.println();
 }
 
@@ -135,6 +150,8 @@ void setup(){
     if (client.connect("ESP32Client", mqttUser, mqttPassword )) {
       Serial.println("Connected to MQTT");
       client.subscribe("actuators/doorlock/1"); // Subscribe to the topic to receive data from the actuator
+      client.subscribe("actuators/door_unlock/1"); // Subscribe to the topic to receive data from the actuator
+
     } else {
       Serial.print("Failed with state ");
       Serial.print(client.state());
